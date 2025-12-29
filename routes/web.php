@@ -139,7 +139,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/account/update', [DashboardController::class, 'updateAccount'])->name('account.update');
     Route::put('/account/password', [DashboardController::class, 'updatePassword'])->name('account.password');
 
-    Route::get('/downloads/file/{id}', [DownloadController::class, 'downloadFile'])->name('downloads.file');
+
 
     
 });
