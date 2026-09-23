@@ -1,0 +1,38 @@
+services:
+  - type: web
+    name: sky-grab
+    runtime: docker
+    dockerfilePath: ./Dockerfile.render
+    repo: https://github.com/MuhamadHafizSaputra/sky-grab
+    plan: free
+    healthCheckPath: /
+    preDeployCommand: "php artisan migrate --force --no-interaction && php artisan config:cache && php artisan route:cache && php artisan view:cache"
+    envVars:
+      - key: APP_NAME
+        value: SkyGrab
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_KEY
+        sync: false  # Set manually in Render dashboard
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DATABASE_URL
+        fromDatabase:
+          name: sky-grab-db
+          property: connectionString
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: SESSION_DRIVER
+        value: cookie
+      - key: CACHE_DRIVER
+        value: file
+      - key: QUEUE_CONNECTION
+        value: sync
+
+databases:
+  - name: sky-grab-db
+    plan: free
+    databaseName: skygrab
+    user: skygrab_user

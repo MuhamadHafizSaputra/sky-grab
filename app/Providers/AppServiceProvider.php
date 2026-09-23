@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,5 +26,9 @@ class AppServiceProvider extends ServiceProvider
     {
             date_default_timezone_set('Asia/Jakarta');
 
+            // Force HTTPS in production (Render handles TLS termination)
+            if ($this->app->environment('production')) {
+                URL::forceScheme('https');
+            }
     }
 }
