@@ -6,7 +6,6 @@ services:
     repo: https://github.com/MuhamadHafizSaputra/sky-grab
     plan: free
     healthCheckPath: /
-    preDeployCommand: "php artisan migrate --force --no-interaction && php artisan config:cache && php artisan route:cache && php artisan view:cache"
     envVars:
       - key: APP_NAME
         value: SkyGrab

@@ -67,4 +67,8 @@ RUN php artisan storage:link 2>/dev/null || true
 
 EXPOSE ${PORT}
 
-CMD ["apache2-foreground"]
+# Copy and set startup script (runs migrations + cache before Apache)
+COPY scripts/render-start.sh /usr/local/bin/render-start.sh
+RUN chmod +x /usr/local/bin/render-start.sh
+
+CMD ["/usr/local/bin/render-start.sh"]
